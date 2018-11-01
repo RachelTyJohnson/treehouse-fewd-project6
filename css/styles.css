@@ -26,6 +26,7 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  background-image: url('../images/background.png');
 }
 
 li, ol, ul {
