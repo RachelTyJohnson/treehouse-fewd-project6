@@ -186,7 +186,7 @@ button:hover {
 }
 
 .win a {
-  color: var(--color-win);
+  color: darkgreen;
 }
 
 .lose {
@@ -194,7 +194,7 @@ button:hover {
 }
 
 .lose a {
-  color: var(--color-lose);
+  color: darkred;
 }
 
 @-webkit-keyframes AnimationName {
