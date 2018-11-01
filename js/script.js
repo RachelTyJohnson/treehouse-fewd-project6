@@ -2,19 +2,22 @@
 let qwerty = document.getElementById('qwerty');
 let phrase = document.getElementById('phrase');
 let missed = 0; //if they miss 5 times, they lose
+let scoreboard = document.querySelector('#scoreboard ol');
+let overlay = document.getElementById('overlay');
+let title = document.querySelector('#overlay .title');
+let startButton = document.querySelector('.btn__reset');
 
 //hide overlay
-let startButton = document.querySelector('.btn__reset');
 startButton.addEventListener('click', () =>{
-  let overlay = document.getElementById('overlay');
   overlay.style.display = 'none';
+  initGame();
 });
 
 //list of phrases
 let phrases = [
   "Google Overlord",
   "I cast Fireball",
-  "Data Always Wins",
+  "Data Never Lies",
   "This is Dog",
   "Marry Me"
 ];
@@ -41,13 +44,50 @@ function addPhraseToDisplay(charArray){
 }
 
 //init game
-const phraseArray = getRandomPhraseAsArray(phrases);
-addPhraseToDisplay(phraseArray);
+function initGame(){
+  clearKeyboard();
+  clearScoreboard();
+  clearPhrase();
+  missed = 0;
+  let phraseArray = getRandomPhraseAsArray(phrases);
+  addPhraseToDisplay(phraseArray);
+}
+
+//clear phrase
+function clearPhrase(){
+  phrase.removeChild(phrase.firstElementChild);
+  let newUl = document.createElement('ul');
+  phrase.append(newUl);
+}
+
+//clear keyboard
+function clearKeyboard(){
+  let keyboardLetters = document.querySelectorAll('#qwerty button');
+  for (i=0; i<keyboardLetters.length; i++){
+    keyboardLetters[i].disabled = false;
+    keyboardLetters[i].classList.remove('chosen');
+  }
+}
+
+//clear scoreboard
+function clearScoreboard(){
+  for (let i=0; i<5; i++){
+    scoreboard.removeChild(scoreboard.firstElementChild);
+    let lostHeartLi = document.createElement('li');
+    lostHeartLi.className = "tries";
+    let lostHeartImg = document.createElement('img');
+    lostHeartImg.src = "images/liveHeart.png";
+    lostHeartImg.height = 35;
+    lostHeartImg.width = 30;
+    lostHeartLi.appendChild(lostHeartImg);
+    scoreboard.appendChild(lostHeartLi);
+  }
+}
+
 
 //Check For Letter!
 function checkLetter(keybutton){
   let letters = document.querySelectorAll('.letter');
-  console.log(letters.length);
   let result = null;
   for (let i=0; i<letters.length; i++){
     if (letters[i].textContent.toUpperCase() == keybutton.textContent.toUpperCase()){
@@ -64,5 +104,36 @@ qwerty.addEventListener('click', (e) => {
     e.target.className = "chosen";
     e.target.disabled = true;
     let letterFound = checkLetter(e.target);
+    if (letterFound === null) {
+      missed++;
+      scoreboard.removeChild(scoreboard.firstElementChild);
+      let lostHeartLi = document.createElement('li');
+      lostHeartLi.className = "tries";
+      let lostHeartImg = document.createElement('img');
+      lostHeartImg.src = "images/lostHeart.png";
+      lostHeartImg.height = 35;
+      lostHeartImg.width = 30;
+      lostHeartLi.appendChild(lostHeartImg);
+      scoreboard.appendChild(lostHeartLi);
+    }
+    checkWin();
   }
 });
+
+//Check if ya won!
+function checkWin(){
+  if (missed===5){
+    overlay.className = "lose";
+    title.textContent = "You Lost!";
+    startButton.textContent = "Play Again!"
+    overlay.style.display = 'flex';
+  }
+  let shown = document.querySelectorAll('.show');
+  let letters = document.querySelectorAll('.letter');
+  if (shown.length == letters.length){
+    overlay.className = "win";
+    title.textContent = "You Win!";
+    startButton.textContent = "Play Again!"
+    overlay.style.display = 'flex';
+  }
+}
