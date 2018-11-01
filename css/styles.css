@@ -57,7 +57,7 @@ button {
 
 button:hover {
   transform: scale(1.15);
-  background: var(--color-win);
+  background: var(--color-start);
 }
 
 .main-container {
