@@ -1,11 +1,11 @@
 /* Main styles */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
+@import url('https://fonts.googleapis.com/css?family=Exo:900');
 
 /* Variables */
 :root {
   --color-win: #78CF82;
   --color-lose: #D94545;
-  --color-start: #5b85b7;
+  --color-start: #53c0cc;
   --color-neutral: #445069;
   --color-neutral-light: #D2D2D2;
   --color-keys: #37474F;
@@ -18,6 +18,7 @@
 /* main */
 * {
   box-sizing: border-box;
+  font-family: 'Exo', cursive;
 }
 
 body {
@@ -35,7 +36,6 @@ li, ol, ul {
 h2 {
   margin: 0;
   text-transform: uppercase;
-  font-family: 'Open Sans', sans-serif;
   font-size: var(--font-size-large);
   margin: 0;
 }
@@ -51,6 +51,13 @@ button {
   -webkit-transition: var(--transition);
   -o-transition: var(--transition);
   transition: var(--transition);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+button:hover {
+  transform: scale(1.15);
+  background: var(--color-win);
 }
 
 .main-container {
@@ -82,15 +89,18 @@ button {
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+  transform: scale(0.7);
 }
 
 .space {
-  width: 15px;
+  width: 30px;
 }
 
 .show {
   color: white;
   background-color: #76CE82;
+  transform: scale(1.02);
+  transition: transform 0.3s cubic-bezier(.19, -1.1, .83, 2.28);
 }
 
 /* Keyboard */
@@ -112,6 +122,12 @@ button {
   background: #FFFFFF;
   border-radius: 5px;
   font-size: var(--font-size-medium);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn__reset:hover {
+  transform: scale(1.15);
 }
 
 /* Overlay */
@@ -126,6 +142,31 @@ button {
   left: 0;
   right: 0;
   border-radius: 5px;
+  z-index: 1000;
+}
+
+#overlay.start {
+  background: linear-gradient(270deg, var(--color-win), var(--color-start));
+  background-size: 400% 400%;
+  -webkit-animation: AnimationName 1s ease infinite;
+  -moz-animation: AnimationName 1s ease infinite;
+  animation: AnimationName 1s ease infinite;
+}
+
+#overlay.win {
+  background: linear-gradient(270deg, var(--color-win), darkgreen);
+  background-size: 400% 400%;
+  -webkit-animation: AnimationName 3s ease infinite;
+  -moz-animation: AnimationName 3s ease infinite;
+  animation: AnimationName 3s ease infinite;
+}
+
+#overlay.lose {
+  background: linear-gradient(270deg, var(--color-lose), darkred);
+  background-size: 400% 400%;
+  -webkit-animation: AnimationName 3s ease infinite;
+  -moz-animation: AnimationName 3s ease infinite;
+  animation: AnimationName 3s ease infinite;
 }
 
 .title {
@@ -154,4 +195,46 @@ button {
 
 .lose a {
   color: var(--color-lose);
+}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
 }

@@ -77,8 +77,6 @@ function clearScoreboard(){
     lostHeartLi.className = "tries";
     let lostHeartImg = document.createElement('img');
     lostHeartImg.src = "images/liveHeart.png";
-    lostHeartImg.height = 35;
-    lostHeartImg.width = 30;
     lostHeartLi.appendChild(lostHeartImg);
     scoreboard.appendChild(lostHeartLi);
   }
@@ -111,8 +109,6 @@ qwerty.addEventListener('click', (e) => {
       lostHeartLi.className = "tries";
       let lostHeartImg = document.createElement('img');
       lostHeartImg.src = "images/lostHeart.png";
-      lostHeartImg.height = 35;
-      lostHeartImg.width = 30;
       lostHeartLi.appendChild(lostHeartImg);
       scoreboard.appendChild(lostHeartLi);
     }
@@ -125,7 +121,7 @@ function checkWin(){
   if (missed===5){
     overlay.className = "lose";
     title.textContent = "You Lost!";
-    startButton.textContent = "Play Again!"
+    startButton.textContent = "Play Again!";
     overlay.style.display = 'flex';
   }
   let shown = document.querySelectorAll('.show');
